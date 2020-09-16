@@ -8,7 +8,7 @@ const fs = require('fs');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-function resolve(dir) {
+function resolve (dir) {
     return path.join(__dirname, '..', dir);
 }
 
@@ -24,11 +24,14 @@ const getEntries = function () {
         let info = fs.statSync(pname);
         // 查看该文件是不是目录
         if (info.isDirectory()) {
-            // 是，则将该文件目录加入到dirs里
-            list.push({
-                filename,
-                path: path.join(`${pname}/app.jsx`)
-            });
+            // 是，则将该文件目录加入到dirs里。
+            // 目录首字母不能是下划线
+            if (filename[0] !== '_') {
+                list.push({
+                    filename,
+                    path: path.join(`${pname}/app.jsx`)
+                });
+            }
         }
     });
     let entry = {};

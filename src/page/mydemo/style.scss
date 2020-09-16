@@ -1,5 +1,5 @@
 .site-layout-content {
-  background: #fff;
+  background: #fff !important;
   padding: 24px;
   min-height: 280px;
 }
@@ -10,4 +10,9 @@
   background: rgba(255, 255, 255, 0.2);
   margin: 16px 24px 16px 0;
   float: left;
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 320px;
 }
