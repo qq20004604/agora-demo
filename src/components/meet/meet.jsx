@@ -6,7 +6,8 @@
  *
  */
 import React, {useState, useEffect} from 'react';
-import {notification, Button, Row, Col} from 'antd';
+import {notification, Button, Row, Col, Switch} from 'antd';
+import AgoraRTC from 'common/js/AgoraRTCSDK.min.js';
 
 function RemoteStream (props) {
     const {id, remoteStream} = props;
@@ -16,15 +17,40 @@ function RemoteStream (props) {
     useEffect(() => {
         remoteStream.play(domID)
     }, [])
-    return DOM
+    return <div>
+        {
+            DOM
+        }
+    </div>
 }
 
 function Meet (props) {
-    const {remoteStreams, params} = props;
+    const {remoteStreams, params, localStream} = props;
+    const [isMuted, setMuted] = useState(false);
     return <div>
         <Row gutter={16}>
             <Col className="gutter-row" span={12}>
-                <div id="local_stream" className="video-placeholder"></div>
+                <div>
+                    <div id="local_stream" className="video-placeholder"></div>
+                    {
+                        localStream ? <div>
+                            <Switch checkedChildren="打开麦克风" unCheckedChildren="关闭麦克风"
+                                    checked={isMuted}
+                                    onClick={isChecked => {
+                                        if (isChecked) {
+                                            localStream.adjustAudioMixingVolume(0);
+                                            localStream.muteAudio()
+                                        } else {
+                                            localStream.adjustAudioMixingVolume(50);
+                                            localStream.unmuteAudio()
+
+                                        }
+                                        setMuted(isChecked)
+                                    }}/>
+
+                        </div> : null
+                    }
+                </div>
             </Col>
             {
                 remoteStreams.map(remoteStream => {

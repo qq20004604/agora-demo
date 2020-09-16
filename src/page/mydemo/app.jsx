@@ -52,6 +52,7 @@ class Root extends React.Component {
                     </Sider>
                     <Content>
                         <Meet remoteStreams={this.state.remoteStreams}
+                              localStream={this.state.localStream}
                               params={this.state.params}/>
                     </Content>
                 </Layout>
@@ -65,6 +66,7 @@ class Root extends React.Component {
         console.log('join params', params);
         const client = AgoraRTC.createClient({mode: params.mode, codec: params.codec})
         this.clientEvents(client, params);
+        // client.enableAudioVolumeIndicator()
 
         this.setState({
             logining: true,
@@ -191,12 +193,18 @@ class Root extends React.Component {
             notification.success({
                 message: 'leave success'
             })
-        }, function (err) {
+            this.setState({
+                logining: false
+            })
+        }, (err) => {
             notification.error({
                 message: 'leave success'
             })
             console.log('channel leave failed')
             console.error(err)
+            this.setState({
+                logining: false
+            })
         })
     }
 

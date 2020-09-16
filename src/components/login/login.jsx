@@ -145,7 +145,7 @@ function Login (props) {
                      channel: 'abc',
                      token: '006cf9abb98e1ce47349ec0bc63814ee93aIADt5KukQIxmZUS+GFbwQXguL/pdDRIxFbdpDcEld7SxTsJBJDUAAAAAEABmqXDyIDViXwEAAQAgNWJf',
                      mode: 'live',
-                     codec: 'h264',
+                     codec: 'vp8',
                      cameraResolution: 'default',
                      uid: ''
                  }}
@@ -164,7 +164,7 @@ function Login (props) {
             <Input placeholder="请输入 Token"/>
         </Form.Item>
         <Form.Item label="高级设置">
-            <Switch checkedChildren="展开" unCheckedChildren="收起"
+            <Switch checkedChildren="收起" unCheckedChildren="展开"
                     checked={showmore}
                     onClick={isChecked => setShowmore(isChecked)}/>
         </Form.Item>
